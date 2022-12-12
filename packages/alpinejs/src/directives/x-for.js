@@ -181,7 +181,9 @@ function loop(el, iteratorNames, evaluateItems, evaluateKey) {
             let scope = scopes[index]
             let key = keys[index]
 
-            let clone = document.importNode(templateEl.content, true).firstElementChild
+            // Check if template.content has an element
+            // If this is inside a Vue application, the <template> tag will already have been evaluated
+            let clone = templateEl.content.firstElementChild ? document.importNode(templateEl.content, true).firstElementChild : templateEl.firstElementChild.cloneNode(true)
 
             addScopeToNode(clone, reactive(scope), templateEl)
 

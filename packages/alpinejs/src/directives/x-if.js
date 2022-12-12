@@ -12,7 +12,9 @@ directive('if', (el, { expression }, { effect, cleanup }) => {
     let show = () => {
         if (el._x_currentIfEl) return el._x_currentIfEl
 
-        let clone = el.content.cloneNode(true).firstElementChild
+        // Check if template.content has an element
+        // If this is inside a Vue application, the <template> tag will already have been evaluated
+        let clone = el.content.firstElementChild ? el.content.cloneNode(true).firstElementChild : el.firstElementChild.cloneNode(true)
 
         addScopeToNode(clone, {}, el)
 
